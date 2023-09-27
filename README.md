@@ -1,6 +1,7 @@
 # @GOOD-I-DEER/node-red-contrib-cosine-similarity
 
 [![platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)
+[![npm version](https://badge.fury.io/js/@good-i-deer%2Fnode-red-contrib-cosine-similarity.svg)](https://badge.fury.io/js/@good-i-deer%2Fnode-red-contrib-cosine-similarity)
 [![GitHub license](https://img.shields.io/github/license/GOOD-I-DEER/node-red-contrib-cosine-similarity)](https://github.com/GOOD-I-DEER/node-red-contrib-cosine-similarity/blob/main/LICENSE)
 
 This module provides a node that calculates cosine similarity of two vector values in Node-RED.
@@ -10,7 +11,27 @@ These nodes require node.js version 18.16.1 and Node-RED version 3.1.0.
 <hr>
 
 ## Description
-This node is part of the Facial Recognition with AI package.  
+This node calculate cosine similarity between two vectors and return it as an array. It can calculate multiple arrays of vectors. The output can be used for detecting if there are cases where the similarity is above a cerain value.
+
+```javascript
+var input_array1 = [
+	[ "arrays of vectors 1" ],
+	[ "arrays of vectors 2" ],
+	[ "arrays of vectors 3" ]
+]
+
+var input_array2 = [
+	[ "arrays of vectors 4" ],
+	[ "arrays of vectors 5" ],
+	[ "arrays of vectors 6" ]
+]
+
+var outout_array = [
+	[ "arrays of cosine similarity between input_array2 and arrays of vectors 1" ],
+	[ "arrays of cosine similarity between input_array2 and arrays of vectors 2" ],
+	[ "arrays of cosine similarity between input_array2 and arrays of vectors 3" ]
+]
+```
 
 <hr>
 
@@ -35,7 +56,7 @@ Restart your Node-RED instance
 
 Array of Vector Arrays
 
-- The input is an array of vector arrays. Each vector array is created by embedding data.
+- The input is an array of vector arrays.
 
 <hr>
 
