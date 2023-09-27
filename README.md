@@ -6,7 +6,7 @@
 
 This module provides a node that calculates cosine similarity of two vector values in Node-RED.
 
-These nodes require node.js version 18.16.1 and Node-RED version 3.1.0.
+This node requires node.js version 18.16.1 and Node-RED version 3.1.0.
 
 <hr>
 
