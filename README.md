@@ -11,7 +11,7 @@ This node requires node.js version 18.16.1 and Node-RED version 3.1.0.
 <hr>
 
 ## Description
-This node calculate cosine similarity between two vectors and return it as an array. It can calculate multiple arrays of vectors. The output can be used for detecting if there are cases where the similarity is above a cerain value.
+This node calculates cosine similarity between two vectors and return it as an array. It can calculate multiple arrays of vectors. The output can be used for detecting if there are cases where the similarity is above a cerain value.
 
 ```javascript
 var input_array1 = [
@@ -78,7 +78,7 @@ File
 
 Array of Cosine Similarity Arrays
 
-- The output is an array of cosine similarity array. Each cosine similarity is similarity between vector of input and vector of file.
+- The output is an array of cosine similarity arrays. Each cosine similarity is similarity between vector of input and vector of file.
 
 <hr>
 
