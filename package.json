@@ -1,6 +1,6 @@
 {
   "name": "@good-i-deer/node-red-contrib-cosine-similarity",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Calculates cosine similarity of two vector values in Node-RED",
   "keywords": [
     "node-red",
