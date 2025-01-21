@@ -1,6 +1,8 @@
 const ERROR_VECTOR_LENGTH_ZERO = -100;
 const ERROR_COSINE_SIMILARITY_NAN = -200;
 const ERROR_FILE_PARSING = -500;
+const ERROR_VARIABLE_NOT_FOUND = -300;
+const ERROR_VARIABLE_NOT_ARRAY = -400;
 
 module.exports = function (RED) {
   function CalculateCosine(config) {
@@ -43,23 +45,41 @@ module.exports = function (RED) {
 
     async function getStoredVector() {
       const fs = require("fs");
+      const fileType = config.fileType;
       const filePath = config.file;
-      try {
-        const data = await fs.promises.readFile(filePath, "utf8");
-        return JSON.parse(data);
-      } catch (err) {
-        return ERROR_FILE_PARSING;
+
+      if (fileType === "path") {
+        try {
+          const data = await fs.promises.readFile(filePath, "utf8");
+          return JSON.parse(data);
+        } catch (err) {
+          return ERROR_FILE_PARSING;
+        }
+      } else if (fileType === "flow") {
+        const storedVector = this.context().flow.get(filePath);
+        if (!storedVector) return ERROR_VARIABLE_NOT_FOUND;
+        if (!Array.isArray(storedVector)) return ERROR_VARIABLE_NOT_ARRAY;
+        return storedVector;
+      } else if (fileType === "global") {
+        const storedVector = this.context().global.get(filePath);
+        if (!storedVector) return ERROR_VARIABLE_NOT_FOUND;
+        if (!Array.isArray(storedVector)) return ERROR_VARIABLE_NOT_ARRAY;
+        return storedVector;
       }
     }
 
     this.on("input", async function (msg) {
       let inputVectors = msg.payload; // Assume this is an array of vectors
-      let storedVectors = await getStoredVector();
+      let storedVectors = await getStoredVector.call(this);
 
       if (!Array.isArray(inputVectors) || inputVectors.length === 0) {
         this.error("Input vectors are not valid.");
       } else if (storedVectors === ERROR_FILE_PARSING) {
         this.error("Stored vectors are not valid. Error occurred while parsing file.");
+      } else if (storedVectors === ERROR_VARIABLE_NOT_FOUND) {
+        this.error("Stored vectors variable not found.");
+      } else if (storedVectors === ERROR_VARIABLE_NOT_ARRAY) {
+        this.error("Stored vectors variable is not an array.");
       } else {
         let results = calculateSimilarityForVectors(inputVectors, storedVectors);
         // Check for any error codes in the results
