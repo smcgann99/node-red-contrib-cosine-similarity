@@ -69,6 +69,7 @@ module.exports = function (RED) {
     }
 
     this.on("input", async function (msg) {
+     
       let inputVectors = msg.payload; // Assume this is an array of vectors
       let storedVectors = await getStoredVector.call(this);
 
